@@ -1,5 +1,5 @@
 {
-  "name": "Kota V",
+  "name": "Vera",
   "timezone": "Asia/Jakarta",
   "logo": "./images/kota-v.png",
   "LATEST_NEWS": {
@@ -77,7 +77,11 @@
   "MENUS": [
     {
       "icon": "./images/contact.svg",
-      "label": "Contact"
+      "label": "Contacts"
+    },
+    {
+      "icon": "./images/contact.svg",
+      "label": "Shop"
     },
     {
       "icon": "./images/mail.svg",

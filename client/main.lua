@@ -108,6 +108,8 @@ end)
 
 RegisterKeyMapping('phone', 'Open Phone', 'keyboard', Config.OpenPhone)
 
+
+
 RegisterNUICallback('close', function(_, cb)
     if not PhoneData.CallData.InCall then
         DoPhoneAnimation('cellphone_text_out')
@@ -135,4 +137,27 @@ RegisterNUICallback('close', function(_, cb)
         PhoneData.isOpen = false
     end)
     cb('ok')
+end)
+
+local resourceName = GetCurrentResourceName()
+
+-- Ensure NUI is ready to receive/answer callbacks (typical z-phone setup already does this)
+-- This file only adds a simple "execute" callback to run chat commands.
+
+-- POST https://z-phone/execute
+-- Body: { command = "shop" }
+RegisterNUICallback('execute', function(data, cb)
+    local cmd = tostring(data and data.command or '')
+    if cmd ~= '' then
+        -- ExecuteCommand expects the command name without the slash
+        -- e.g. "/shop" -> "shop"
+        if cmd:sub(1,1) == '/' then
+            cmd = cmd:sub(2)
+        end
+
+        -- Run the command on the client (this is equivalent to the player typing it)
+        ExecuteCommand(cmd)
+    end
+
+    if cb then cb({ ok = true }) end
 end)
